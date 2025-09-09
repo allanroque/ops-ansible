@@ -1,34 +1,5 @@
 ---
 - name: Coletar e exibir informações do servidor
   hosts: all
-  gather_facts: true
   become: true
 
-  tasks:
-    - name: Exibir hostname
-      ansible.builtin.debug:
-        msg: "Hostname: {{ ansible_hostname }}"
-
-    - name: Exibir distribuição Linux
-      ansible.builtin.debug:
-        msg: "Distro: {{ ansible_distribution }} {{ ansible_distribution_version }}"
-
-    - name: Exibir arquitetura
-      ansible.builtin.debug:
-        msg: "Arquitetura: {{ ansible_architecture }}"
-
-    - name: Exibir número de CPUs
-      ansible.builtin.debug:
-        msg: "CPUs disponíveis: {{ ansible_processor_vcpus }}"
-
-    - name: Exibir memória total
-      ansible.builtin.debug:
-        msg: "Memória total (MB): {{ ansible_memtotal_mb }}"
-
-    - name: Exibir interfaces de rede
-      ansible.builtin.debug:
-        var: ansible_interfaces
-
-    - name: Exibir endereço IP principal
-      ansible.builtin.debug:
-        msg: "IP primário: {{ ansible_default_ipv4.address }}"
