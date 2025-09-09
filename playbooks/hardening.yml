@@ -1,19 +1,19 @@
 ---
-- name: hardening linux server
+- name: Hardening linux server
   hosts: all
-  become: yes
+  become: true
   tasks:
 
-  - name: instalar pacotes basicos
+  - name: Instalar pacotes basicos
     ansible.builtin.package:
       name:
-       - vim
-       - git
-       - bind-utils
-       - net-tools
+        - vim
+        - git
+        - bind-utils
+        - net-tools
       state: present
 
-  - name: remover pacotes
+  - name: Remover pacotes
     ansible.builtin.package:
       name:
         - telnet
@@ -22,26 +22,39 @@
       state: absent
 
 # configurar o chronyd
-  - name: install package chronyd
+  - name: Install package chronyd
     ansible.builtin.package:
       name: chrony-4.2-1.el9.aarch64
       state: present
 
-  - name: copy config template
+  - name: Copy config template
     ansible.builtin.copy:
       src: files/chrony.conf
       dest: /etc/chrony.conf
 
-  - name: start chrony server
+  - name: Start chrony server
     ansible.builtin.service:
       name: chronyd
       state: started
       enabled: true
 
-  - name: comando de test do chrony
+  - name: Comando de test do chrony
     command: chronyc sourcestats
     register: cmd_chronyc
 
-  - name: output comando chronyc
+  - name: Output comando chronyc
     ansible.builtin.debug:
       var: cmd_chronyc
+
+# configurar SELinux
+
+  - name: Enable SELinux
+    ansible.posix.selinux:
+      policy: targeted
+      state: enforcing
+
+# desabilitar firewall local
+  - name: Disable firewalld
+    ansible.builtin.service:
+      name: firewalld
+      state: stopped
