@@ -44,7 +44,7 @@
 
   - name: Output comando chronyc
     ansible.builtin.debug:
-      var: cmd_chronyc
+      var: cmd_chronyc.stdout_lines
 
 # configurar SELinux
 
