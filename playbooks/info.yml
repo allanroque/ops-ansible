@@ -8,12 +8,18 @@
     debug:
       msg: "Hostname do servidor: {{ ansible_hostname }}" 
 
-
   - name: Versão do s.o do hosts
     debug:
       msg: "O S.O do servidor é: {{ ansible_distribution }} {{ ansible_distribution_version }}" 
 
-
   - name: Versao de kernel
     debug:
       msg: "Versão de kernel do servidor: {{ ansible_kernel }}" 
+
+  - name: coleta de memória
+    command: "df -h"
+    register: command_output
+
+  - name: saida de command_output
+    debug:
+      var: command_output

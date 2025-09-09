@@ -5,4 +5,8 @@
   tasks:
 
   - name: instalar pacotes basicos
-    
+    ansible.builtin.package:
+      name:
+       - vim
+       - git
+       - 
