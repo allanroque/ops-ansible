@@ -1,0 +1,8 @@
+---
+- name: hardening linux server
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: instalar pacotes basicos
+    
