@@ -39,3 +39,16 @@
             alerta: "{{ event.alert.labels.alertname }}"
             hostname: "{{ event.alert.labels.instance }}"
 
+
+    # -------------------------------------------
+    # Alerta: Espaço em disco crítico (status: firing)
+    # Aciona automação para liberar espaço
+    # -------------------------------------------
+    - name: High Filesystem Usage - Firing
+      condition: event.alert.labels.alertname == "HighFilesystemUsage" and event.alert.status == "firing"
+      action:
+        run_workflow_template:
+          name: "SH - WF - Disk Space"
+          organization: ITOPS
+          job_args:
+            limit: "{{ event.meta.hosts }}"
