@@ -40,11 +40,11 @@
   - name: Comando de test do chrony
     command: chronyc sourcestats
     register: cmd_chronyc
+    changed_when: false
 
   - name: Output comando chronyc
     ansible.builtin.debug:
       var: cmd_chronyc
-    changed_when: false
 
 # configurar SELinux
 
