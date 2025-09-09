@@ -9,4 +9,39 @@
       name:
        - vim
        - git
-       - 
+       - bind-utils
+       - net-tools
+      state: present
+
+  - name: remover pacotes
+    ansible.builtin.package:
+      name:
+        - telnet
+        - tcpdump
+        - chrony
+      state: absent
+
+# configurar o chronyd
+  - name: install package chronyd
+    ansible.builtin.package:
+      name: chrony-4.2-1.el9.aarch64
+      state: present
+
+  - name: copy config template
+    ansible.builtin.copy:
+      src: files/chrony.conf
+      dest: /etc/chrony.conf
+
+  - name: start chrony server
+    ansible.builtin.service:
+      name: chronyd
+      state: started
+      enabled: true
+
+  - name: comando de test do chrony
+    command: chronyc sourcestats
+    register: cmd_chronyc
+
+  - name: output comando chronyc
+    ansible.builtin.debug:
+      var: cmd_chronyc
