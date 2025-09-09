@@ -2,4 +2,8 @@
 - name: Coletar e exibir informações do servidor
   hosts: all
   become: true
+  tasks:
 
+  - name: Ansible Hostname
+    debug:
+      msg: "Hostname do servidor: {{ ansible_hostname }}"  
