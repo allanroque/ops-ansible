@@ -18,7 +18,6 @@
       name:
         - telnet
         - tcpdump
-        - chrony
       state: absent
 
 # configurar o chronyd
@@ -45,6 +44,7 @@
   - name: Output comando chronyc
     ansible.builtin.debug:
       var: cmd_chronyc
+    changed_when: false
 
 # configurar SELinux
 
